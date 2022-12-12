@@ -1,7 +1,7 @@
 resource "azurerm_key_vault_key" "example" {
-	# checkov:skip=CKV_AZURE_40: ADD REASON
-	# checkov:skip=CKV_AZURE_112: ADD REASON
-  name         = "exampleKVkey"
+  # checkov:skip=CKV_AZURE_40: ADD REASON
+  # checkov:skip=CKV_AZURE_112: ADD REASON
+  name         = var.key_name
   key_vault_id = azurerm_key_vault.example.id
   key_type     = "RSA"
   key_size     = 2048
@@ -36,7 +36,7 @@ resource "azurerm_key_vault_access_policy" "server" {
 }
 
 resource "azurerm_key_vault" "example" {
-  name                       = "exampleKVt123"
+  name                       = var.key_vault_name
   location                   = var.location
   resource_group_name        = var.rg_name
   tenant_id                  = data.azurerm_client_config.current.tenant_id
@@ -44,8 +44,9 @@ resource "azurerm_key_vault" "example" {
   soft_delete_retention_days = 7
   purge_protection_enabled   = true
   network_acls {
-    bypass = "None"
+    bypass         = "None"
     default_action = "Deny"
   }
   tags = var.tags
 }
+

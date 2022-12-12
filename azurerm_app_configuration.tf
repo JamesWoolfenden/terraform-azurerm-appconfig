@@ -1,10 +1,10 @@
 resource "azurerm_app_configuration" "example" {
-  name                       = "appConf2"
+  name                       = var.app_config.name
   resource_group_name        = var.rg_name
   location                   = var.location
-  sku                        = "standard"
+  sku                        = var.app_config.sku
   local_auth_enabled         = true
-  public_network_access      = "Enabled"
+  public_network_access      = var.app_config.public_network_access
   purge_protection_enabled   = false
   soft_delete_retention_days = 1
 
@@ -22,3 +22,9 @@ resource "azurerm_app_configuration" "example" {
 
   tags = var.tags
 }
+
+variable "app_config" {
+  type = map(any)
+}
+
+
