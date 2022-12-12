@@ -1,6 +1,6 @@
 resource "azurerm_key_vault_key" "example" {
   # checkov:skip=CKV_AZURE_40: ADD REASON
-  # checkov:skip=CKV_AZURE_112: ADD REASON
+  # checkov:skip=CKV_AZURE_112: Excessive
   name         = var.key_name
   key_vault_id = azurerm_key_vault.example.id
   key_type     = "RSA"

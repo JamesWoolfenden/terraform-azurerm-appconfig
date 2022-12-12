@@ -3,7 +3,7 @@ resource "azurerm_app_configuration" "example" {
   resource_group_name        = var.rg_name
   location                   = var.location
   sku                        = var.app_config.sku
-  local_auth_enabled         = true
+  local_auth_enabled         = false
   public_network_access      = var.app_config.public_network_access
   purge_protection_enabled   = false
   soft_delete_retention_days = 1

@@ -12,29 +12,37 @@ With Secure Defaults from Checkov
 [![Infrastructure Tests](https://www.bridgecrew.cloud/badges/github/jameswoolfenden/terraform-azurerm-appconfig/general)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=JamesWoolfenden%2Fterraform-azurerm-appconfig&benchmark=INFRASTRUCTURE+SECURITY)
 
 Terraform module -
-
 ---
+---
+```powershell
 
-It's 100% Open Source and licensed under the [APACHE2](LICENSE).
-
+```
 ## Usage
-
 This is a very basic example.
+## Usage
+         [parameter(mandatory=$true)]
 
-Include **module.appconfig.tf** this repository as a module in your existing Terraform code:
+   if (!(test-path .\$name))
 
-```terraform
-module "appconfig" {
-  source      = "JamesWoolfenden/appconfig/azurerm"
-  version     = "v0.1.1"
-  cdn = {
-    name                      = "example-endpoint"
+       git clone --depth=1 --branch=$branch git@github.com:JamesWoolfenden/tf-scaffold.git "$name"
+
+      return
+   }
+   rm "$name\.git" -recurse -force
+   cd $name
+   {
+      pre-commit install
     profile_name              = "example-profile"
-    location                  = "global"
-    origin_host_header        = azurerm_storage_account.pike.primary_hostname
+      git commit -m "Initial Draft"
+   }
     origin_path               = "/"
     content_types_to_compress = ["text/html", "text/css", "application/javascript"]
-  }
+git clone --depth=1 git@github.com:JamesWoolfenden/tf-scaffold.git scaffold| rm !$/.git -rf
+```bash
+   name="scaffold"
+else
+   name=$1
+   branch="master"
 }
 ```
 
@@ -57,7 +65,6 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [azurerm_app_configuration.example](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/app_configuration) | resource |
 | [azurerm_key_vault.example](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault) | resource |
 | [azurerm_key_vault_access_policy.client](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_access_policy) | resource |
 | [azurerm_key_vault_access_policy.server](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_access_policy) | resource |
@@ -69,13 +76,12 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_app_config"></a> [app\_config](#input\_app\_config) | n/a | `map(any)` | n/a | yes |
-| <a name="input_identity_name"></a> [identity\_name](#input\_identity\_name) | n/a | `string` | n/a | yes |
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | n/a | `string` | `"app-config-key"` | no |
 | <a name="input_key_vault_name"></a> [key\_vault\_name](#input\_key\_vault\_name) | n/a | `string` | `"app-config-key-vault"` | no |
 | <a name="input_location"></a> [location](#input\_location) | n/a | `string` | `"uksouth"` | no |
 | <a name="input_rg_name"></a> [rg\_name](#input\_rg\_name) | n/a | `string` | `"pike"` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | This is to help you add tags to your cloud objects | `map(any)` | n/a | yes |
+| <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | This is to help you add tags to your cloud objects | `map` | n/a | yes |
+| <a name="input_rg_name"></a> [rg\_name](#input\_rg\_name) | n/a | `string` | n/a | yes |
 
 ## Outputs
 
@@ -98,15 +104,8 @@ resource "azurerm_role_definition" "terraform_pike" {
 
   permissions {
     actions = [
-    "Microsoft.KeyVault/locations/deletedVaults/read",
-    "Microsoft.KeyVault/vaults/accessPolicies/write",
     "Microsoft.KeyVault/vaults/delete",
-    "Microsoft.KeyVault/vaults/read",
     "Microsoft.KeyVault/vaults/write",
-    "Microsoft.ManagedIdentity/userAssignedIdentities/delete",
-    "Microsoft.ManagedIdentity/userAssignedIdentities/read",
-    "Microsoft.ManagedIdentity/userAssignedIdentities/write",
-    "Microsoft.Resources/subscriptions/resourcegroups/read"]
     not_actions = []
   }
 
@@ -146,7 +145,7 @@ Please use the [issue tracker](https://github.com/JamesWoolfenden/terraform-azur
 
 ## Copyrights
 
-Copyright ? 2022 James Woolfenden
+Copyright © 2022 James Woolfenden
 
 ## License
 
