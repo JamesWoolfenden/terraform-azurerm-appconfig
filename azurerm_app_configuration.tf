@@ -26,5 +26,3 @@ resource "azurerm_app_configuration" "example" {
 variable "app_config" {
   type = map(any)
 }
-
-
