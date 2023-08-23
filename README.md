@@ -2,7 +2,7 @@
 
 With Secure Defaults from Checkov
 
-[![Build Status](https://github.com/JamesWoolfenden/terraform-azurerm-appconfig/workflows/Verify%20and%20Bump/badge.svg?branch=master)](https://github.com/JamesWoolfenden/terraform-azurerm-appconfig)
+[![Build Status](https://github.com/JamesWoolfenden/terraform-azurerm-appconfig/workflows/Verify/badge.svg?branch=master)](https://github.com/JamesWoolfenden/terraform-azurerm-appconfig)
 [![Latest Release](https://img.shields.io/github/release/JamesWoolfenden/terraform-azurerm-appconfig.svg)](https://github.com/JamesWoolfenden/terraform-azurerm-appconfig/releases/latest)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/JamesWoolfenden/terraform-azurerm-appconfig.svg?label=latest)](https://github.com/JamesWoolfenden/terraform-azurerm-appconfig/releases/latest)
 ![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.14.0-blue.svg)
@@ -65,6 +65,7 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [azurerm_app_configuration.example](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/app_configuration) | resource |
 | [azurerm_key_vault.example](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault) | resource |
 | [azurerm_key_vault_access_policy.client](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_access_policy) | resource |
 | [azurerm_key_vault_access_policy.server](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_access_policy) | resource |
@@ -76,12 +77,13 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_app_config"></a> [app\_config](#input\_app\_config) | n/a | `map(any)` | n/a | yes |
+| <a name="input_identity_name"></a> [identity\_name](#input\_identity\_name) | n/a | `string` | n/a | yes |
 | <a name="input_key_name"></a> [key\_name](#input\_key\_name) | n/a | `string` | `"app-config-key"` | no |
 | <a name="input_key_vault_name"></a> [key\_vault\_name](#input\_key\_vault\_name) | n/a | `string` | `"app-config-key-vault"` | no |
 | <a name="input_location"></a> [location](#input\_location) | n/a | `string` | `"uksouth"` | no |
 | <a name="input_rg_name"></a> [rg\_name](#input\_rg\_name) | n/a | `string` | `"pike"` | no |
-| <a name="input_common_tags"></a> [common\_tags](#input\_common\_tags) | This is to help you add tags to your cloud objects | `map` | n/a | yes |
-| <a name="input_rg_name"></a> [rg\_name](#input\_rg\_name) | n/a | `string` | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | This is to help you add tags to your cloud objects | `map(any)` | n/a | yes |
 
 ## Outputs
 
@@ -104,8 +106,20 @@ resource "azurerm_role_definition" "terraform_pike" {
 
   permissions {
     actions = [
+    "Microsoft.AppConfiguration/configurationStores/delete",
+    "Microsoft.AppConfiguration/configurationStores/listKeys/action",
+    "Microsoft.AppConfiguration/configurationStores/read",
+    "Microsoft.AppConfiguration/configurationStores/write",
+    "Microsoft.AppConfiguration/locations/deletedConfigurationStores/read",
+    "Microsoft.KeyVault/locations/deletedVaults/read",
+    "Microsoft.KeyVault/vaults/accessPolicies/write",
     "Microsoft.KeyVault/vaults/delete",
+    "Microsoft.KeyVault/vaults/read",
     "Microsoft.KeyVault/vaults/write",
+    "Microsoft.ManagedIdentity/userAssignedIdentities/delete",
+    "Microsoft.ManagedIdentity/userAssignedIdentities/read",
+    "Microsoft.ManagedIdentity/userAssignedIdentities/write",
+    "Microsoft.Resources/subscriptions/resourcegroups/read"]
     not_actions = []
   }
 
@@ -145,7 +159,7 @@ Please use the [issue tracker](https://github.com/JamesWoolfenden/terraform-azur
 
 ## Copyrights
 
-Copyright © 2022 James Woolfenden
+Copyright © 2022-23 James Woolfenden
 
 ## License
 
